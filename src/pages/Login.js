@@ -14,10 +14,12 @@ const Login = props => {
   const handleLogin = () => {
     setError(null);
     setLoading(true);
-    axios.post('http://localhost:4000/users/signin', { username: username.value, password: password.value }).then(response => {
+    //// axios.post('http://localhost:4000/users/signin', { username: username.value, password: password.value }).then(response => {
+    axios.post('https://minpro-blog.purwadhikabootcamp.com/api/auth/login', { username: username.value, password: password.value }).then(response => {
       setLoading(false);
-      setUserSession(response.data.token, response.data.user);
+      setUserSession(response.data.token, response.data.isAccountExist.username);
       history('/dashboard');
+      // console.log(response.data.isAccountExist.username)
     }).catch(error => {
       setLoading(false);
       if (error.response.status === 401) setError(error.response.data.message);
